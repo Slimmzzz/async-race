@@ -26,10 +26,10 @@ body {
     }
   }
   &.white {
-    background: #E9E9E9;
+    background: #CBCBCB;
   }
   &:hover {
-    background-color: #D1D1D1;
+    background-color: #EBEBEB;
   }
   &:active {
     transform: scale(1.05);
@@ -42,9 +42,11 @@ body {
   margin-bottom: 30px;
   input[type="text"] {
       height: 28px;
+      border-radius: 5px;
     }
   input[type="color"] {
     margin: 1px 5px;
+    border-radius: 5px;
   }
   .create-car {
     display: flex;
@@ -69,4 +71,108 @@ body {
 }
 .h2 {
   color: #FFF;
+}
+.cars-garage {
+  margin-bottom: 40px;
+  .cars-options {
+    .car-name {
+      margin-left: 15px;
+      color: #FFF;
+    }
+  }
+  .car-track {
+    width: 100%;
+    margin-top: 5px;
+    display: flex;
+    border-bottom: 3px dotted #FFF;
+    .car-road {
+      width: 100%;
+      position: relative;
+      .image {
+        position: relative;
+        // animation-name: drive;
+        // animation-duration: 2s;
+        // animation-timing-function: linear;
+        // animation-fill-mode: forwards;
+      }
+      // @keyframes drive {
+      //   0% {
+      //     left: 0;
+      //   }
+      //   100% {
+      //     left: 90%;
+      //   }
+      // }
+    }
+    .self-options {
+      background: transparent;
+      font-size: 30px;
+      width: 40px;
+      height: 45px;
+      border-radius: 10px;
+      margin-right: 5px;
+      &.run {
+      color: #09E62E;
+      border-color: #09E62E;
+      &:hover, &:active {
+        color: royalblue;
+        border-color: royalblue;
+      }
+      }
+      &.stop {
+        color: red;
+        border-color: red;
+      }
+      &:disabled {
+        color: #3B3B3B;
+        border-color: #3B3B3B;
+      }
+    }
+    .flag {
+      position: absolute;
+      right: 60px;
+      top: 5px;
+    }
+  }
+}
+
+.table-result {
+  max-width: 400px;
+  width: 100%;
+  color: #FFF;
+  margin-bottom: 50px;
+  .main-row {
+    background: slateblue;
+    & td {
+      padding: 5px;
+    }
+    & :nth-child(3), :last-child {
+      width: 130px;
+    }
+  }
+  .td-clickable {
+    cursor: pointer;
+    user-select: none;
+  }
+}
+
+.winner {
+  position: fixed;
+  z-index: 999;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .winner-text {
+    font-size: 3rem;
+    color: #FFF;
+    font-weight: bold;
+    font-family: sans-serif;
+  }
 }
