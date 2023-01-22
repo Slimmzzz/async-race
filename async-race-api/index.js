@@ -6,6 +6,7 @@ const db = {
             "name": "Tesla",
             "color": "#e6e6fa",
             "id": 1,
+            "wins": 1
         },
         {
             "name": "BMW",

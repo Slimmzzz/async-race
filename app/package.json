@@ -2,7 +2,7 @@
     "name": "async-race",
     "version": "1.0.0",
     "description": "",
-    "main": "webpack.config.js",
+    "main": "app.ts",
     "scripts": {
         "start": "cross-env NODE_ENV=development webpack serve --config ./webpack.dev.js",
         "build": "cross-env NODE_ENV=production webpack --config ./webpack.prod.js",
@@ -43,5 +43,8 @@
         "webpack-cli": "^4.5.0",
         "webpack-dev-server": "^3.11.2",
         "webpack-merge": "^5.8.0"
+    },
+    "dependencies": {
+        "dayjs": "^1.11.7"
     }
 }
