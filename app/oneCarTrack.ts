@@ -113,7 +113,7 @@ export class Track implements ITrack {
     return this.wrapper;
   }
 
-  appendCar(carObj: { color: string; name: string; id: number; wins?: number | undefined; }) {
+  appendCar(carObj: { color: string; name: string; id?: number; wins?: number | undefined; }) {
     const car = new Car(carObj.color, carObj.name, carObj.id, carObj.wins);
     const finishFlag: HTMLDivElement = document.createElement('div');
     finishFlag.classList.add('flag');

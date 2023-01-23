@@ -65,6 +65,24 @@ window.addEventListener('load', async () => {
     });
   }
 
+  async function onCreate(event: Event) {
+    event.preventDefault();
+    const name = (<HTMLInputElement>document.querySelector('#carName-create'));
+    const color = (<HTMLInputElement>document.querySelector('#carColor-create'));
+    if (!name.value.trim()) {
+      return alert('Не указано название автомобиля');
+    }
+    const carObj: CarObj = await createCar(name.value, color.value);
+    const track: ITrack = new Track();
+    commonState.tracksOnPage.push(track);
+    track.appendCar(carObj);
+    carsGarage!.appendChild(track.trackElement);
+    commonState.carsTotal = Number(commonState.carsTotal) + 1;
+    (<HTMLSpanElement>document.querySelector('#cars-total-count'))!.textContent = commonState.carsTotal;
+    name.value = '';
+    color.value = '#000000';
+  }
+  
   function onGenerate() {
     Promise.all(
       new Array(100).fill(0).map(async (x) => {
