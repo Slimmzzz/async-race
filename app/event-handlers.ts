@@ -147,34 +147,3 @@ export function onCarFinished(e: Event) {
     }
   }
 }
-
-export function onGenerate() {
-  Promise.all(
-    new Array(100).fill(0).map(async (x) => {
-      const nameFirstPart: string = commonState.carNames[Math.floor(Math.random() * commonState.carNames.length)];
-      const nameSecondPart: string = commonState.carModels[Math.floor(Math.random() * commonState.carModels.length)];
-      const hex: string[] = '0123456789ABCDEF'.split('');
-      const name: string = `${nameFirstPart} ${nameSecondPart}`;
-      const color: string = '#' + new Array(6).fill(0).map((x) => {
-        return hex[Math.floor(Math.random() * 16)];
-      })
-      .join('');
-      const headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      return await fetch(garage, {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({
-          name,
-          color,
-        })
-      })
-    })
-  ).then(async () => {
-    while (commonState.tracksOnPage.length) {
-      const track: Track = commonState.tracksOnPage[0];
-      track.destroyClientOnly();
-    }
-    await renderPage();
-  });
-}

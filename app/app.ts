@@ -46,19 +46,6 @@ export const createCar = async (name: string, color: string) => {
   return await res.json();
 }
 
-export async function renderPage() {
-  const [ cars, total ] = await getAllCars([{key: '_page', value: commonState.page}, {key: '_limit', value: 7}]);
-  (<Number>commonState.carsTotal) = Number(total);
-  (<HTMLSpanElement>document.querySelector('#cars-total-count'))!.textContent = total;
-  (<HTMLSpanElement>document.querySelector('#page-num'))!.textContent = commonState.page;
-  cars.forEach((carObj: CarObj) => {
-    const track: ITrack = new Track();
-    track.appendCar(carObj);
-    commonState.tracksOnPage.push(track);
-    carsGarage!.appendChild(track.trackElement);
-  });
-}
-
 window.addEventListener('load', async () => {
   const root: HTMLDivElement = document.createElement('div');
   root.innerHTML = garagePage;
@@ -78,6 +65,37 @@ window.addEventListener('load', async () => {
     });
   }
 
+  function onGenerate() {
+    Promise.all(
+      new Array(100).fill(0).map(async (x) => {
+        const nameFirstPart: string = commonState.carNames[Math.floor(Math.random() * commonState.carNames.length)];
+        const nameSecondPart: string = commonState.carModels[Math.floor(Math.random() * commonState.carModels.length)];
+        const hex: string[] = '0123456789ABCDEF'.split('');
+        const name: string = `${nameFirstPart} ${nameSecondPart}`;
+        const color: string = '#' + new Array(6).fill(0).map((x) => {
+          return hex[Math.floor(Math.random() * 16)];
+        })
+        .join('');
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return await fetch(garage, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({
+            name,
+            color,
+          })
+        })
+      })
+    ).then(async () => {
+      while (commonState.tracksOnPage.length) {
+        const track: Track = commonState.tracksOnPage[0];
+        track.destroyClientOnly();
+      }
+      await renderPage();
+    });
+  }
+  
   async function navigateToAnotherPage(pageNum: number): Promise<void> {
     (<Number>commonState.page) = pageNum;
     while (commonState.tracksOnPage.length) {
