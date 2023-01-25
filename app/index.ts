@@ -1,0 +1,9 @@
+import './style.scss';
+import './app.ts';
+import './carConstructor.ts';
+import './event-handlers.ts';
+import './images.ts';
+import './oneCarTrack.ts';
+import './page-layout.ts';
+import './state.ts';
+import './winners-table.ts';
